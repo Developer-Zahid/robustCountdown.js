@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>robustCountdown.js | A robust, flexible countdown timer</title>
+    <link rel="stylesheet" href="./public/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-50 flex flex-col items-center justify-center min-h-screen p-10 gap-16 font-sans">
+<!-- INSTANCE 1: Granular Date Control (New Year) -->
+    <section class="w-full max-w-4xl flex flex-col items-center">
+        <h1 class="text-4xl mb-6 font-light tracking-widest uppercase text-sky-400 text-center">
+            Fixed Date Countdown
+        </h1>
+        
+        <div class="flex flex-wrap justify-center gap-5" id="fixed-countdown">
+            <!-- Time Segment -->
+            <div class="bg-slate-800 p-6 rounded-xl min-w-[120px] shadow-lg flex flex-col items-center transition-transform hover:-translate-y-1 relative overflow-hidden group">
+                <!-- Optional: Background Progress Bar Example -->
+                <div class="absolute bottom-0 left-0 h-1 bg-sky-500 transition-all duration-1000" id="bar-days" style="width: 100%"></div>
+                
+                <span class="number text-6xl font-bold leading-none mb-2 text-white relative z-10" data-countdown-type="days">00</span>
+                <span class="text-sm uppercase tracking-wider text-slate-400 relative z-10" id="label-days">Days</span>
+            </div>
+            
+            <div class="bg-slate-800 p-6 rounded-xl min-w-[120px] shadow-lg flex flex-col items-center transition-transform hover:-translate-y-1 relative overflow-hidden">
+                <div class="absolute bottom-0 left-0 h-1 bg-sky-500 transition-all duration-1000" id="bar-hours" style="width: 100%"></div>
+                
+                <span class="number text-6xl font-bold leading-none mb-2 text-white relative z-10" data-countdown-type="hours">00</span>
+                <span class="text-sm uppercase tracking-wider text-slate-400 relative z-10" id="label-hours">Hours</span>
+            </div>
+            
+            <div class="bg-slate-800 p-6 rounded-xl min-w-[120px] shadow-lg flex flex-col items-center transition-transform hover:-translate-y-1 relative overflow-hidden">
+                <div class="absolute bottom-0 left-0 h-1 bg-sky-500 transition-all duration-1000" id="bar-minutes" style="width: 100%"></div>
+                
+                <span class="number text-6xl font-bold leading-none mb-2 text-white relative z-10" data-countdown-type="minutes">00</span>
+                <span class="text-sm uppercase tracking-wider text-slate-400 relative z-10" id="label-minutes">Minutes</span>
+            </div>
+            
+            <div class="bg-slate-800 p-6 rounded-xl min-w-[120px] shadow-lg flex flex-col items-center transition-transform hover:-translate-y-1 relative overflow-hidden">
+                <div class="absolute bottom-0 left-0 h-1 bg-sky-500 transition-all duration-1000" id="bar-seconds" style="width: 100%"></div>
+                
+                <span class="number text-6xl font-bold leading-none mb-2 text-white relative z-10" data-countdown-type="seconds">00</span>
+                <span class="text-sm uppercase tracking-wider text-slate-400 relative z-10" id="label-seconds">Seconds</span>
+            </div>
+        </div>
+
+        <div class="mt-6 flex gap-3 flex-wrap justify-center">
+            <button onclick="fixedInstance.pause()" class="px-5 py-2.5 bg-slate-800 border border-sky-400 text-sky-400 rounded-md font-semibold hover:bg-sky-400 hover:text-slate-900 transition-colors duration-200">
+                Pause
+            </button>
+            <button onclick="fixedInstance.resume()" class="px-5 py-2.5 bg-slate-800 border border-sky-400 text-sky-400 rounded-md font-semibold hover:bg-sky-400 hover:text-slate-900 transition-colors duration-200">
+                Resume
+            </button>
+            <button onclick="addOneYear()" class="px-5 py-2.5 bg-slate-800 border border-sky-400 text-sky-400 rounded-md font-semibold hover:bg-sky-400 hover:text-slate-900 transition-colors duration-200">
+                Add 1 More Year
+            </button>
+        </div>
+        <div class="mt-5 text-xl min-h-[1.5rem] text-emerald-500 text-center" id="fixed-status">Running...</div>
+    </section>
+
+    <!-- INSTANCE 2: Relative Timer with Progress & Restart -->
+    <section class="w-full max-w-4xl flex flex-col items-center">
+        <h2 class="text-2xl text-emerald-500 mb-6 font-light uppercase tracking-wide text-center">
+            Relative Timer (1 Minute)
+        </h2>
+        
+        <div class="flex flex-wrap justify-center gap-5" id="relative-countdown">
+            <div class="bg-slate-800 p-6 rounded-xl min-w-[120px] shadow-lg flex flex-col items-center transition-transform hover:-translate-y-1">
+                <span class="number text-6xl font-bold leading-none mb-2 text-white" data-timer-type="minutes">00</span>
+                <span class="text-sm uppercase tracking-wider text-slate-400">Minutes</span>
+            </div>
+            <div class="bg-slate-800 p-6 rounded-xl min-w-[120px] shadow-lg flex flex-col items-center transition-transform hover:-translate-y-1">
+                <span class="number text-6xl font-bold leading-none mb-2 text-white" data-timer-type="seconds">00</span>
+                <span class="text-sm uppercase tracking-wider text-slate-400">Seconds</span>
+            </div>
+        </div>
+        
+        <div class="w-full max-w-lg h-2.5 bg-slate-700 rounded-full mt-8 overflow-hidden hidden" id="progress-wrapper">
+            <div class="h-full bg-emerald-500 w-0 transition-all duration-200" id="progress-fill"></div>
+        </div>
+
+        <div class="mt-6 flex gap-3 flex-wrap justify-center">
+            <button onclick="relativeInstance.pause()" class="px-5 py-2.5 bg-slate-800 border border-sky-400 text-sky-400 rounded-md font-semibold hover:bg-sky-400 hover:text-slate-900 transition-colors duration-200">
+                Pause
+            </button>
+            <button onclick="relativeInstance.resume()" class="px-5 py-2.5 bg-slate-800 border border-sky-400 text-sky-400 rounded-md font-semibold hover:bg-sky-400 hover:text-slate-900 transition-colors duration-200">
+                Resume
+            </button>
+            <button onclick="relativeInstance.restart()" class="px-5 py-2.5 bg-slate-800 border border-sky-400 text-sky-400 rounded-md font-semibold hover:bg-sky-400 hover:text-slate-900 transition-colors duration-200">
+                Restart Timer
+            </button>
+            <button onclick="addOneMinute()" class="px-5 py-2.5 bg-slate-800 border border-sky-400 text-sky-400 rounded-md font-semibold hover:bg-sky-400 hover:text-slate-900 transition-colors duration-200">
+                Add 1 More minute
+            </button>
+        </div>
+        <div class="mt-5 text-xl min-h-[1.5rem] text-emerald-500 text-center" id="relative-status"></div>
+    </section>
+
+    <script src="./src/robustCountdown.js"></script>
+    <script src="./public/js/script.js"></script>
+</body>
+</html>

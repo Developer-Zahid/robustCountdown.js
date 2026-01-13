@@ -1,0 +1,14 @@
+/* Custom Font Setup */
+@font-face {
+	font-family: clockicons;
+	src: url("../fonts/clockicons.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+}
+
+/*  Preserving the .number class for the specific font family 
+    while letting Tailwind handle size, color, and weight.
+*/
+.number {
+	font-family: clockicons, sans-serif;
+}
