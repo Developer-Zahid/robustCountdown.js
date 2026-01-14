@@ -1,6 +1,6 @@
-# RobustCountdown.js
+# [RobustCountdown.js ↗](https://developer-zahid.github.io/robustCountdown.js/)
 
-**RobustCountdown.js** is a lightweight, zero-dependency JavaScript class for creating flexible, high-performance countdown timers. It supports both **fixed dates** (e.g., "New Year 2099") and **relative timers** (e.g., "5 minute challenge"), complete with pause/resume functionality, granular progress tracking, and extensive callbacks.
+A lightweight, zero-dependency JavaScript class for creating flexible, high-performance countdown timers. It supports both **fixed dates** (e.g., "New Year 2099") and **relative timers** (e.g., "5 minute challenge"), complete with pause/resume functionality, granular progress tracking, and extensive callbacks.
 
 It is "headless," meaning it handles the logic and DOM updates while leaving the styling completely up to you (Tailwind, Bootstrap, or custom CSS).
 
