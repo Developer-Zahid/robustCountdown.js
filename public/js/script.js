@@ -23,7 +23,7 @@ function addOneMinute() {
 document.addEventListener("DOMContentLoaded", () => {
 	// --- EXAMPLE 1: Fixed Date (Granular) ---
 	fixedInstance = new RobustCountdown("#fixed-countdown", {
-		year: 2027,
+		year: 2099,
 		month: 1,
 		day: 1,
 		hours: 0,
